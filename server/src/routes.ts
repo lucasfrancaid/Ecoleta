@@ -1,12 +1,15 @@
-import { Router } from 'express';
+import express from 'express';
 
-const routes = Router();
+import PointsController from './controllers/PointsController';
+import ItemsController from './controllers/ItemsController';
 
-routes.get('/welcome', (req, res) => {
-    res.json({
-        English: "Welcome to the first day of Next Level Week made by @rocketseat_oficial !",
-        Portuguese: "Bem-vindo ao primeiro dia da Semana Next Level feita pela @rocketseat_oficial !"
-    });
-});
+const routes = express.Router();
+const pointsController = new PointsController();
+const itemsController = new ItemsController();
 
-module.exports = routes;
+routes.get('/items', itemsController.index);
+routes.get('/points', pointsController.index);
+routes.get('/points/:id', pointsController.show);
+routes.post('/points', pointsController.create);    
+
+export default routes;
