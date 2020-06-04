@@ -30,10 +30,12 @@
 
 
 ## 💻 Tecnologias
+* [Docker](https://www.docker.com/)
 * [Node.js](https://nodejs.org/)
 * [ReactJS](https://reactjs.org/)
 * [Typescript](https://www.typescriptlang.org/)
-* [Docker](https://www.docker.com/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Knex.js](http://knexjs.org/)
 * [Express](https://expressjs.com/)
 
 <br>
@@ -126,13 +128,20 @@ Distribuido sob a licença MIT.
   <a href="#-license">📝 License</a>
 </p>
 
+
+<br>
+
+
 ## 💻 Stacks
+* [Docker](https://www.docker.com/)
 * [Node.js](https://nodejs.org/)
 * [ReactJS](https://reactjs.org/)
 * [Typescript](https://www.typescriptlang.org/)
-* [Docker](https://www.docker.com/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Knex.js](http://knexjs.org/)
 * [Express](https://expressjs.com/)
 
+<br>
 
 ## 🕵️ About the project
 Ecoleta is a project created by @Rockeatseat, where a Collection Station can be registered, so that other people can find the Collection Points closest to their homes for disposal.
