@@ -2,8 +2,11 @@ FROM node:lts-alpine
 
 WORKDIR /usr/app
 
-ADD package*.json ./
+COPY package*.json ./
+
 RUN npm install
+
+COPY . .
 
 EXPOSE 3000
 

@@ -17,12 +17,12 @@ services:
       context: ./server
       dockerfile: Dockerfile
     depends_on:
-      - "db"
+      - db
     ports:
       - "3333:3333"
     volumes:
       - ./server:/usr/app
-    command: npm run dev
+    command: sh -c "npm run knex:migrate && npm run dev"
 
   web:
     container_name: ecoleta_web
@@ -31,7 +31,7 @@ services:
       context: ./web
       dockerfile: Dockerfile
     depends_on:
-      - "server"
+      - server
     ports:
       - "3000:3000"
     volumes:
