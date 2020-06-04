@@ -84,4 +84,70 @@ export default class PointsController {
             ...point,
         });
     };
+
+    async update (request: Request, response: Response) {
+        const { id } = request.params;
+
+        const {
+            image,
+            name,
+            email,
+            whatsapp,
+            latitude,
+            longitude,
+            city,
+            uf,
+            items
+        } = request.body;
+
+        const point = {
+            image,
+            name,
+            email,
+            whatsapp,
+            latitude,
+            longitude,
+            city,
+            uf,
+        };
+
+        const pointItems = await knex('point_items').where({point_id: id});
+
+        const trx = await knex.transaction();
+        await trx('points').update(point).where({id});
+        const insertNewPointItem = async (newItem: object) => await knex('point_items').insert(newItem);
+        const deletePointItem = async (id: number) => await knex('point_items').delete().where({id});
+
+        items.map((item_id: number) => {
+            if (!pointItems.find(item => item.item_id === item_id)) {
+                return insertNewPointItem({
+                    item_id,
+                    point_id: Number(id),
+                });
+            };
+        });
+
+        pointItems.map(item => {
+            if (!items.find((item_id: number) => item_id == item.item_id)) {
+                return deletePointItem(item.id);
+            };
+        });
+        
+        await trx.commit();
+
+        return response.status(200).json({ id, point })
+    };
+
+    async delete (request: Request, response: Response) {
+        const { id } = request.params;
+
+        await knex('points').delete().where({id})
+        .then((res) => {
+            return response.status(200).json({message: 'The Point was deleted.'})
+        })
+        .catch((err) => {
+            return response.status(400).json({message: err})
+        });
+    };
+
 };
