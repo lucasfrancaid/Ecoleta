@@ -49,14 +49,18 @@ Para iniciar o App com Docker (*Você precisa ter o Docker instalado para contin
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 $ cd Ecoleta
-$ sudo docker-compose run server npm install
-$ sudo docker-compose run web npm install
 $ sudo docker-compose up
 ```
-A partir desse momento, os contêineres Server e Web serão iniciados, e o aplicativo estará disponível nas seguintes URLs:
-<br/>
-- <b>Back-end:</b> http://localhost:3333/welcome
-- <b>Front-end:</b> http://localhost:3000
+A partir desse momento, os contêineres Server, DB e Web serão iniciados, e o aplicativo estará disponível nas seguintes URLs:
+<br>
+- <b>Back-end:</b> http://localhost:3333/
+- <b>Front-end:</b> http://localhost:3000/
+
+E para concluír, abra um novo terminal *sem parar o docker* e execute o seguinte comando:
+```bash
+$ sudo docker exec -it ecoleta_server npm run knex:seed
+```
+*Verifique se tudo está ocorrendo bem no back-end:* http://localhost:3333/items 
 
 <br>
 
@@ -65,23 +69,25 @@ Para iniciar o App com NPM, antes você deve clonar o repositório:
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 ```
-Depois acesse a pasta server, e execute npm install:
+*Você precisa ter o Postgres instalado para continuar. Caso contrário, você pode baixá-lo através deste link: https://www.postgresql.org/download/*, tendo o Postgres instalado acesse a pasta server, e execute npm install:
 ```bash
 $ cd Ecoleta/server
 $ npm install
+$ npm run knex:migrate
+$ npm run knex:seed
 $ npm run dev
 ```
-Faça o mesmo para a web, retornando para a pasta Ecoleta e entrando na pasta web:
+Abra um novo terminal e faça o mesmo para a web, acesse a pasta *Ecoleta/web* e execute:
 ```bash
-$ cd ..
-$ cd web
 $ npm install
 $ npm start
 ```
 Após rodar os comandos, os apps Server e Web estarão disponíveis nas seguintes URLs:
-<br/>
-- <b>Back-end:</b> http://localhost:3333/welcome
-- <b>Front-end:</b> http://localhost:3000
+<br>
+- <b>Back-end:</b> http://localhost:3333/
+- <b>Front-end:</b> http://localhost:3000/
+
+*Verifique se tudo está ocorrendo bem no back-end:* http://localhost:3333/items 
 
 <br>
 
@@ -139,15 +145,18 @@ To start App with docker (*You need to have the Docker installed to proceed. If 
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 $ cd Ecoleta
-$ sudo docker-compose run server npm install
-$ sudo docker-compose run web npm install
 $ sudo docker-compose up
 ```
-
-From that moment, the Server and Web containers will start, and the application will be available at the following URLs: 
+From that moment, the Server, DB and Web containers will start, and the application will be available at the following URLs: 
 <br>
-- <b>Back-end:</b> http://localhost:3333/welcome
-- <b>Front-end:</b> http://localhost:3000
+- <b>Back-end:</b> http://localhost:3333/
+- <b>Front-end:</b> http://localhost:3000/
+
+To finish, open a new terminal without finishing the docker and run the following command:
+```bash
+$ sudo docker exec -it ecoleta_server npm run knex:seed
+```
+*Check that everything is going well:* http://localhost:3333/items 
 
 <br>
 
@@ -156,23 +165,25 @@ To start App with NPM, before, clone this repository:
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 ```
-Then go to the server folder, and run npm install:
+*You need to have Postgres installed to continue. Otherwise, you can download it via this link: https://www.postgresql.org/download/*, then go to the server folder, and run npm install:
 ```bash
 $ cd Ecoleta/server
 $ npm install
+$ npm run knex:migrate
+$ npm run knex:seed
 $ npm run dev
 ```
-Do the same for the web, returning to the Ecoleta folder and entering the web folder:
+Open a new terminal and do the same for the web, access path *Ecoleta/web* and run:
 ```bash
-$ cd ..
-$ cd web
 $ npm install
 $ npm start
 ```
 After running the commands, the Server and Web apps will be available at the following URLs:
-<br/>
-- <b>Back-end:</b> http://localhost:3333/welcome
-- <b>Front-end:</b> http://localhost:3000
+<br>
+- <b>Back-end:</b> http://localhost:3333/
+- <b>Front-end:</b> http://localhost:3000/
+
+*Check that everything is going well:* http://localhost:3333/items
 
 <br>
 
