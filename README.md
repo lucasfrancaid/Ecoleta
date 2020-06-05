@@ -51,6 +51,8 @@ Para iniciar o App com Docker (*Você precisa ter o Docker instalado para contin
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 $ cd Ecoleta
+$ sudo docker-compose run --rm server npm install
+$ sudo docker-compose run --rm web npm install
 $ sudo docker-compose up
 ```
 A partir desse momento, os contêineres Server, DB e Web serão iniciados, e o aplicativo estará disponível nas seguintes URLs:
@@ -154,6 +156,8 @@ To start App with docker (*You need to have the Docker installed to proceed. If 
 ```bash
 $ git clone https://github.com/lucasfrancaid/Ecoleta.git
 $ cd Ecoleta
+$ sudo docker-compose run --rm server npm install
+$ sudo docker-compose run --rm web npm install
 $ sudo docker-compose up
 ```
 From that moment, the Server, DB and Web containers will start, and the application will be available at the following URLs: 
