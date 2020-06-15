@@ -1,15 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
 import { View, ImageBackground, Text, Image, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import PickerSelect from 'react-native-picker-select';
+
+import axios from 'axios';
+
+interface IBGEUfResponse {
+  sigla: string;
+};
+
+interface IBGECityResponse {
+  nome: string;
+};
+
+interface Item {
+  label: string;
+  value: string;
+};
 
 const Home = () => {
+  const [ufs, setUfs] = useState<Item[]>([]);
+  const [cities, setCities] = useState<Item[]>([]);
+
+  const [selectedUf, setSelectedUf] = useState('0');
+  const [selectedCity, setSelectedCity] = useState('0');
+
   const navigation = useNavigation();
 
+  useEffect(() => {
+    axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
+        .then((res) => {
+            const ufInitials = res.data.map(uf => {
+              return {
+                label: uf.sigla, 
+                value: uf.sigla,
+              }
+            });
+            setUfs(ufInitials);
+        })
+        .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+      if (selectedUf === '0') return;
+
+      axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
+          .then((res) => {
+              const cities = res.data.map(city => {
+                return {
+                  label: city.nome,
+                  value: city.nome,
+                }
+              });
+              setCities(cities);
+          })
+          .catch((err) => console.error(err));
+  }, [selectedUf])
+
   const handleNavigateToPoints = () => {
-    navigation.navigate('Points');
+    navigation.navigate('Points', {
+      uf: selectedUf,
+      city: selectedCity,
+    });
   };
+
+  const SelectIcon = () => {
+    return (
+      <Icon name="chevron-down" style={styles.selectIcon} size={20} />
+    );
+  };
+
+  const handleSelectUf = (event: ChangeEvent<HTMLSelectElement>) => setSelectedUf(String(event));
+
+  const handleSelectCity = (event: ChangeEvent<HTMLSelectElement>) => setSelectedCity(String(event));
 
   return (
       <ImageBackground 
@@ -24,6 +89,30 @@ const Home = () => {
           </View>
 
           <View style={styles.footer}>
+            
+            <View style={styles.select}>
+              <PickerSelect 
+                //key
+                Icon={SelectIcon}
+                placeholder={{label: "Selecione um estado", value: null}}
+                onValueChange={handleSelectUf}
+                items={ufs}
+                value={selectedUf}
+              />
+            </View>
+
+            <View style={styles.select}>
+              <PickerSelect 
+                //key
+                Icon={SelectIcon}
+                placeholder={{label: "Selecione uma cidade", value: null}}
+                onValueChange={handleSelectCity}
+                items={cities}
+                value={selectedCity}
+                />
+            </View>
+
+
             <RectButton style={styles.button} onPress={handleNavigateToPoints}>
               <View style={styles.buttonIcon}>
                 <Text>
@@ -67,15 +156,20 @@ const styles = StyleSheet.create({
   
     footer: {},
   
-    select: {},
-  
-    input: {
+    select: {
       height: 60,
       backgroundColor: '#FFF',
       borderRadius: 10,
       marginBottom: 8,
-      paddingHorizontal: 24,
+      paddingTop: 5,
+      paddingHorizontal: 15,
       fontSize: 16,
+    },
+
+    selectIcon: {
+      paddingHorizontal: 10,
+      paddingTop: 15,
+      color: '#DADADA', 
     },
   
     button: {

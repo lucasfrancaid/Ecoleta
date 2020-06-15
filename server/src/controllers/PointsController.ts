@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import knex from '../database/connection';           
+import knex from '../database/connection';
 
 export default class PointsController {
     async index (request: Request, response: Response) {
-        const { city, uf, items } = request.query;
+        const { uf, city, items } = request.query;
 
         const parsedItems = String(items)
             .split(',')
@@ -12,12 +12,19 @@ export default class PointsController {
         const points = await knex('points')
             .join('point_items', 'points.id', '=', 'point_items.point_id')
             .whereIn('point_items.item_id', parsedItems)
-            .where('city', String(city))
             .where('uf', String(uf))
+            .where('city', String(city))
             .distinct()
             .select('points.*');
 
-        return response.json(points);
+        const serializedPoints = points.map(point => {
+            return {
+                ...point,
+                image_url: `http://192.168.0.87:3333/uploads/${point.image}`
+            };
+        });
+
+        return response.json(serializedPoints);
     };
 
     async show (request: Request, response: Response) {
@@ -28,12 +35,17 @@ export default class PointsController {
             return response.status(400).json({message: 'Point not found!'})
         };
 
+        const serializedPoint = {
+            ...point,
+            image_url: `http://192.168.0.87:3333/uploads/${point.image}`
+        };
+
         const items = await knex('items')
             .join('point_items', 'items.id', '=', 'point_items.item_id')
             .where('point_items.point_id', id)
             .select('items.title');
 
-        return response.json({ point, items });
+        return response.json({ point: serializedPoint, items });
     };
 
     async create (request: Request, response: Response) {
@@ -49,7 +61,7 @@ export default class PointsController {
         } = request.body;
 
         const point = {
-            image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+            image: request.file.filename,
             name,
             email,
             whatsapp,
@@ -68,7 +80,10 @@ export default class PointsController {
 
         const point_id = insertedId;
 
-        const pointItems = items.map((item_id: number) => {
+        const pointItems = items
+        .split(',')
+        .map((item: string) => Number(item.trim()))
+        .map((item_id: number) => {
             return {
                 item_id,
                 point_id,
@@ -101,7 +116,7 @@ export default class PointsController {
         } = request.body;
 
         const point = {
-            image,
+            image: request.file ? request.file.filename : image,
             name,
             email,
             whatsapp,
@@ -118,7 +133,8 @@ export default class PointsController {
         const insertNewPointItem = async (newItem: object) => await knex('point_items').insert(newItem);
         const deletePointItem = async (id: number) => await knex('point_items').delete().where({id});
 
-        items.map((item_id: number) => {
+        const arrayItems = items.split(',').map((item: string) => Number(item.trim()))
+        arrayItems.map((item_id: number) => {
             if (!pointItems.find(item => item.item_id === item_id)) {
                 return insertNewPointItem({
                     item_id,
@@ -128,7 +144,7 @@ export default class PointsController {
         });
 
         pointItems.map(item => {
-            if (!items.find((item_id: number) => item_id == item.item_id)) {
+            if (!arrayItems.find((item_id: number) => item_id == item.item_id)) {
                 return deletePointItem(item.id);
             };
         });
