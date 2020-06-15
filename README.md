@@ -8,10 +8,15 @@
    <a href="https://github.com/lucasfrancaid/Ecoleta">
     <img src="web/public/2.png" alt="Web"/>
   </a>
-   🇧🇷  Aplicativo desenvolvido na NEXT LEVEL WEEK #1, ministrada pela @Rocketseat <br/>
-   🇺🇸  Application developed at NEXT LEVEL WEEK #1, taught by @Rocketseat
   </p>
-  <h1 align="center">Ecoleta</h1>
+  
+  <p align="center">
+    <img src="web/src/assets/logo.svg" alt="Logo" />
+    <p align="center">
+      🇧🇷  Aplicativo desenvolvido na NEXT LEVEL WEEK #1, ministrada pela @Rocketseat <br/>
+      🇺🇸  Application developed at NEXT LEVEL WEEK #1, taught by @Rocketseat
+    </p>
+  </p>
 </p>
 
 <p align="center">
