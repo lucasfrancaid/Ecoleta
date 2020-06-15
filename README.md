@@ -1,11 +1,17 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <p align="center">
-  <h1 align="center">NEXT LEVEL WEEK #1</h1>
   <p align="center">  
-    🇧🇷  Aplicativo em desenvolvimento na NEXT LEVEL WEEK criada pela @Rocketseat <br/>
-    🇺🇸  App under development on NEXT LEVEL WEEK (NLW) created by @Rocketseat
+  <a href="https://github.com/lucasfrancaid/Ecoleta">
+    <img src="web/public/1.png" alt="Mobile"/>
+  </a>
+   <a href="https://github.com/lucasfrancaid/Ecoleta">
+    <img src="web/public/2.png" alt="Web"/>
+  </a>
+   🇧🇷  Aplicativo desenvolvido na NEXT LEVEL WEEK #1, ministrada pela @Rocketseat <br/>
+   🇺🇸  Application developed at NEXT LEVEL WEEK #1, taught by @Rocketseat
   </p>
+  <h1 align="center">Ecoleta</h1>
 </p>
 
 <p align="center">
@@ -33,10 +39,14 @@
 * [Docker](https://www.docker.com/)
 * [Node.js](https://nodejs.org/)
 * [ReactJS](https://reactjs.org/)
+* [React Native](https://reactnative.dev/)
 * [Typescript](https://www.typescriptlang.org/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Knex.js](http://knexjs.org/)
 * [Express](https://expressjs.com/)
+* [Expo](https://expo.io/)
+* [Celebrate](https://github.com/arb/celebrate)
+* [Leaflet](https://leafletjs.com/)
 
 <br>
 
@@ -138,10 +148,14 @@ Distribuido sob a licença MIT.
 * [Docker](https://www.docker.com/)
 * [Node.js](https://nodejs.org/)
 * [ReactJS](https://reactjs.org/)
+* [React Native](https://reactnative.dev/)
 * [Typescript](https://www.typescriptlang.org/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Knex.js](http://knexjs.org/)
 * [Express](https://expressjs.com/)
+* [Expo](https://expo.io/)
+* [Celebrate](https://github.com/arb/celebrate)
+* [Leaflet](https://leafletjs.com/)
 
 <br>
 
